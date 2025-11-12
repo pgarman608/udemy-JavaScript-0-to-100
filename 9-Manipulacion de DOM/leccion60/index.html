@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo getElementsByTagName</title>
+</head>
+<body>
+    
+
+    <p class="parrafo">Primer parrafo!</p>
+    <p class="parrafo">Segundo parrafo!!</p>
+    <p class="parrafo">Tercer parrafo!!!</p>
+
+    <script>
+        //Aqui veremos como podemos acceder a todos los elementos del html que tengan la misma clase en JavaScript.
+        let parrafos = document.getElementsByClassName("parrafo");
+        
+        console.log(parrafos.length);
+        /**
+         * Para acceder a cada uno de los elementos de deberemos hacerlo como si fuese un array.
+         * El orden sera de arriba a abajo en el html.
+         */
+        for (let index = 0; index < parrafos.length; index++) {
+            
+            console.log(parrafos[index].innerHTML);
+            
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo de onclick</title>
+</head>
+<body>
+    <!-- 
+    
+        Aqui veremos como funciona el evento de onclick en nuestro html y JavaScript
+        
+        Tendremos que asignarlo a nuestro elemento del DOM que queramos clickar
+    
+    -->
+    <h1 onclick="cambiarTexto(this)">Manejo de onclick</h1>
+
+    <script>
+        //Y despues podremos hacer lo que queramos con los elementos disponibles del 
+        //DOM de la pagina.
+        function cambiarTexto(titulo) {
+
+            titulo.innerHTML = "Nuevo titulo!";
+
+        }
+
+    </script>
+</body>
+</html>

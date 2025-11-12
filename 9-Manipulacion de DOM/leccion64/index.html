@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form id="formPrueba">
+        <p>Nombre</p>
+        <input type="text" name="nombre" id="">
+
+        <p>Apellido</p>
+        <input type="text" name="apellido" id="">
+
+    </form>
+
+    <button onclick="mostarValores()">Mostrar</button>
+
+    <div id="valores"></div>
+
+    <script>
+        /**
+         * Aqui veremos como podemos recoger los datos de un formulario de html en JavaScript (de otra forma)
+         * 
+         * 1- Crearemos una funcion para añadirla a un boton de html.
+         */
+        function mostarValores() {
+
+            //2- Recogeremos el formulario con el id que tengamos que recoger.
+            
+            let formulario = document.forms["formPrueba"];
+
+            //3- Recogeremos los datos del formulario como si fuese un array y accediendo 
+            //con el name del input.
+
+            let textform = formulario["nombre"] + "<br/>" + formulario["apellido"];
+            
+            //4- Lo mostraremos por pantalla.
+
+            document.getElementById("valores").innerHTML = textform;
+        }
+    </script>
+</body>
+</html>

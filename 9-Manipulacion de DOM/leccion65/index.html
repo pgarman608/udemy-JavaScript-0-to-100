@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar el titulo de un h1 con JavaScript</title>
+</head>
+<body>
+    
+    <h1 id="titulo">Manejo de texto del dom con JS</h1>
+    
+    <button onclick="mostrar()">Modificar</button>
+
+    <script>
+        
+         /**
+         * Aqui veremos como podemos modificar el texto de un h1 en JavaScript
+         * 
+         * 1- Crearemos una funcion para añadirla a un boton de html.
+         */
+        
+        function mostrar() {
+
+            //2- Podemos acceder al propio texto del h1 con el id titulo y modificarlo.
+
+            document.getElementById("titulo").innerHTML = "Nuevo titulo";
+
+        }
+    </script>
+</body>
+</html>

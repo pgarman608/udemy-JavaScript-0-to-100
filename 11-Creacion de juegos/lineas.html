@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Canvas</title>
+
+        <style>
+            /*
+            
+                Al canvas generado en el body le pondremos un color de fondo 
+                y un borde para diferenciarlo.
+            
+            */
+            #canvas{
+
+                background-color: cyan;
+                border: solid yellow 3px;
+
+            }
+
+        </style>
+
+        <script>
+            
+            let canvas;
+            /**
+             * Aqui veremos como podemos acceder a los datos importantes del canvas.
+             */
+            window.addEventListener("load",(event)=>{
+
+                canvas = document.getElementById("canvas");
+                // Comprobamos que podemos acceder al canvas.
+                if (canvas && canvas.getContext) {
+                    // Recogeremos el contenido 2d del canvas.
+                    let ctx = canvas.getContext("2d");
+
+                    if (ctx) {
+                        
+                        // Aqui veremos como podemos dibujar lineas dentro del canvas con JavaScript
+                        //Le damos un estilo al trazo.
+
+                        ctx.lineWidth = 5;
+                        ctx.strokeStyle = "yellow";
+
+                        //Iniciamos el trazo
+
+                        ctx.beginPath();
+                        ctx.lineCap = "round";
+                        //Punto donde empieza y donde finaliza
+
+                        ctx.moveTo(50,50);
+                        ctx.lineTo(450,50);
+
+                        //Mostramos el trazo
+
+                        ctx.stroke();
+                        /**
+                         * Aqui veremos algunas propiedades de las lineas del canvas JavaScript
+                         * --lineCap--
+                         * 1- round: Las esquinas seran redondeadas.
+                         * 2- square: Las esquinas cuadradas.
+                         * 3- butt: Las esqunas reducidas.
+                         */
+                        
+                        ctx.strokeStyle = "orange";
+                        ctx.beginPath();
+                        ctx.lineCap = "square";
+                        ctx.moveTo(50,100);
+                        ctx.lineTo(450,100);
+                        ctx.stroke();
+                        
+                        ctx.strokeStyle = "blue";
+                        ctx.beginPath();
+                        ctx.lineCap = "butt";
+                        ctx.moveTo(50,150);
+                        ctx.lineTo(450,150);
+                        ctx.stroke();
+                    }else{
+                        
+                        alert("No soporta la etiqueta canvas");
+
+                    }
+
+                }
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <!--
+        
+            La etiqueta canvas nos genera un "lienzo" en el que podemos 
+            dibujar graficos y animaciones mediante JavaScript
+        
+        -->
+        <canvas id="canvas" width="600" height="400">
+
+        </canvas>
+    </body>
+</html>

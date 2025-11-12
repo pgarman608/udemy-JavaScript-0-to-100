@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento onChange</title>
+</head>
+<body>
+    <h1>Evento onChange</h1>
+
+    <input type="text" onchange="convertir(this)">
+    
+    <script>
+        /**
+         * Aqui veremos como podemos usar el evento onChange.
+         * 
+         * Este evento se activa cuando hay un cambio en el elemento seleccionado.
+         * 
+         * En este caso, cada vez que escribamos el input se pasará a mayusculas. (Se cambiara cada vez que dejemos de escribir)
+         */
+        function convertir(input) {
+
+            input.value = input.value.toUpperCase();
+        
+        }
+
+    </script>
+</body>
+</html>

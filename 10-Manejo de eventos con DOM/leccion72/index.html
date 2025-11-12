@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos onmouseover y onmouseout</title>
+</head>
+<body>
+    <h1 onmouseover="toRed(this)" onmouseout="toBlue(this)">Eventos onmouseover y onmouseout</h1>
+
+    <script>
+        /**
+         * Aqui veremos como podemos usar los eventos "onmouseover" y "onmouseout" en JavaScript.
+         * 
+         * Onmouseover: Se activa cuando el mouse a entrado dentro del elemento.
+         * 
+         * Onmouseout: Se activa cuando el mouse a salido dentro del elemento.
+         * 
+         * Cambiaremos el color del texto gracias a estos dos eventos.
+         */
+        function toRed(titulo) {
+            
+            titulo.style.color = "red";
+
+        }
+
+        function toBlue(titulo) {
+
+            titulo.style.color = "blue";
+            
+        }
+    </script>    
+</body>
+</html>

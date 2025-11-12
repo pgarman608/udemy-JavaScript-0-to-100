@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos onfocus y onblur</title>
+</head>
+<body>
+    <h1>Eventos onfocus y onblur</h1>
+
+    <input onfocus="toRed(this)" onblur="toBlue(this)" type="text"/>
+
+    <script>
+        /**
+         * Aqui veremos como podemos usar los eventos "onfocus" y "onblur" en JavaScript.
+         * 
+         * Onfocus: Se activa cuando estamos interactuando con un elemento del DOM.
+         * 
+         * Onblur: Se activa cuando dejamos de interactuar con un elemento del DOM.
+         * 
+         * Cambiaremos el background del texto gracias a estos dos eventos.
+         */
+        function toRed(titulo) {
+            
+            titulo.style.background = "red";
+
+        }
+
+        function toBlue(titulo) {
+
+            titulo.style.background = "blue";
+            
+        }
+    </script>    
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo getElementsByClassName</title>
+</head>
+<body>
+    
+    <h1>¡Hola mundo!</h1>
+    <p class="parrafo">Primer parrafo!</p>
+    <p class="parrafo">Segundo parrafo!!</p>
+    <p>Tercer parrafo!!!</p>
+
+    <script>
+        //Aqui veremos como podemos acceder a todos los elementos del html que tengan la misma clases, ids o tags en JavaScript.
+        let parrafos = document.querySelectorAll("p.parrafo");
+        
+        console.log(parrafos.length);
+        /**
+         * Para acceder a cada uno de los elementos de deberemos hacerlo como si fuese un array.
+         * El orden sera de arriba a abajo en el html.
+         * 
+         * Los elementos que no concuerden con los parametros del queryselectorall no se almacenaran en la variable
+         */
+        for (let index = 0; index < parrafos.length; index++) {
+            
+            console.log(parrafos[index].innerHTML);
+            
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio del valor de atributos HTML con JavaScript</title>
+</head>
+<body>
+    
+    <h1 id="titulo">Manejo de texto del dom con JS</h1>
+    
+    <button onclick="mostrar()">Modificar</button>
+    <br>
+    <img id="imagen" src="1.jpg" alt="">
+    <script>
+        
+         /**
+         * Aqui veremos como podemos modificar de atributos de un elemento de HTML.
+         * 
+         * 1- Crearemos una funcion para añadirla a un boton de html.
+         */
+        
+        function mostrar() {
+
+            //2- Podemos acceder al propio atributo del elemento como si 
+            //estubiese el texto de la leccion anterior.
+
+            document.getElementById("imagen").src = "2.jpg";
+
+        }
+    </script>
+</body>
+</html>

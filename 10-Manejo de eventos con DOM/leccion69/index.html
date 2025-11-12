@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manejo de eventos por JavaScript</title>
+</head>
+<body>
+    
+    <h1 id="titulo">Manejo de eventos</h1>
+
+    <br>
+
+    <div id="mostrar"></div>
+
+    <script>
+        /**
+         * Aqui veremos como podemos añadir un evento sin la necesidad 
+         * de escribirlo en el html y hacerlo por javascript.
+         * 
+         * Cuando recogemos el elemento del DOM por JavaScript podremos añadir 
+         * el evento con la funcion que queramos al elemento.
+         */
+        document.getElementById("titulo").onclick = modificar;
+
+        function modificar(titulo) {
+
+            document.getElementById("mostrar").innerHTML = "Mas contenido!!"
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evento onload</title>
+</head>
+<body onload="comprobarCookies()">
+    
+    <h1>Manejo del evento Onload</h1>
+
+    <br>
+
+    <div id="mostrar"></div>
+
+    <script>
+        /**
+         * Aqui veremos como usar el evento llamado onload en JavaScript.
+         * 
+         * Tendremos que añadir el metodo que se ejecutara al html directamente o por JavaScript.
+         * 
+         * En este metodo comprobaremos si estan habilitadas las cookies en el navegador.
+         */
+        function comprobarCookies() {
+            
+            alert("Has entrado a la pagina!!");
+
+            let textoMostrar = "";
+
+            if (navigator.cookieEnabled) {
+                
+                textoMostrar = "Las cookies estan activadas.";
+
+            }else{
+
+                textoMostrar = "Las cookies estan desactivadas.";
+
+            }
+
+            document.getElementById("mostrar").innerHTML = textoMostrar;
+
+        }
+
+    </script>
+</body>
+</html>

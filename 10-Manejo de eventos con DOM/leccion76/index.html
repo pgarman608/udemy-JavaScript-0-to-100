@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones flecha en addEventListener</title>
+</head>
+<body>
+
+    <h1>Funciones flecha en addEventListener</h1>
+
+    <input type="text" id="nombre"/>
+
+    <script>
+        /**
+         * Aqui veremos como podemos utilizar las funciones flecha dentro del addEventListener en JavaScript.
+         * 
+         * Las funciones flecha nos permite crear funciones dentro de la funcion y que ocupan menos espacio.
+         * 
+         * Repitiremos la misma funcion de la leccion anterior pero de esta forma.
+         */
+        document.getElementById("nombre").addEventListener("focus", (evento) => {
+            let elementoDOM = evento.target;
+            
+            elementoDOM.style.background = "green";
+        });
+        document.getElementById("nombre").addEventListener("blur",toCyan);
+
+        function toYellow(evento) {
+            let elementoDOM = evento.target;
+            
+            elementoDOM.style.background = "yellow";
+        }
+
+        function toCyan(evento) {
+            let elementoDOM = evento.target;
+            
+            elementoDOM.style.background = "cyan";
+        }
+    </script>    
+</body>
+</html>

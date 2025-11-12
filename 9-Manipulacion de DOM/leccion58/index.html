@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accediendo al DOM con JavaScript</title>
+</head>
+<body>
+    
+    <h1 class="cabecera">Lorem ipsum dolor sit.</h1>
+
+    <p class="parrafo">Lorem ipsum dolor sit.</p>
+
+    <script>
+        /**
+         * Aqui veremos como podemos acceder al DOM de html en JavaScript.
+         * 
+         * En este ejemplo podemos ver el contenido html que tiene las 
+         * etiquetas ids y pasarlo por consola.
+         * 
+         * Tambien podemos modificar la informacion de los elementos del dom.
+         */
+
+        let cabecera = document.getElementById("cabecera");
+        cabecera.innerHTML = "Hola mundo!!";
+        console.log(cabecera);
+
+        let parrafo = document.getElementById("parrafo").innerHTML;
+        console.log(parrafo);
+
+    </script>
+</body>
+</html>
