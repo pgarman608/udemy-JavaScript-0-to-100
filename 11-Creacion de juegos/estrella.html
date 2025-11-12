@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Canvas</title>
+
+        <style>
+            /*
+            
+                Al canvas generado en el body le pondremos un color de fondo 
+                y un borde para diferenciarlo.
+            
+            */
+            #canvas{
+
+                background-color: cyan;
+                border: solid yellow 3px;
+
+            }
+
+        </style>
+
+        <script>
+            
+            let canvas;
+            /**
+             * Aqui veremos como podemos acceder a los datos importantes del canvas.
+             */
+            window.addEventListener("load",(event)=>{
+
+                canvas = document.getElementById("canvas");
+                // Comprobamos que podemos acceder al canvas.
+                if (canvas && canvas.getContext) {
+                    // Recogeremos el contenido 2d del canvas.
+                    let ctx = canvas.getContext("2d");
+
+                    if (ctx) {
+                        
+                        //Aqui veremos como podemos hacer una estrella en el canvas con JavaScript
+                        
+                        //Estilos del estrella
+                        ctx.lineWidth = 5;
+                        ctx.strokeStyle = "red";
+                        ctx.fillStyle = "yellow"
+
+                        //Parametros de la estrella
+
+                        //Numero de puntas.
+                        let puntas = 10;
+                        //Numero de Vertices.
+                        let vertices = puntas * 2;
+                        //Angulo en el que aparece.
+                        let angulo = Math.PI * 2 / vertices;
+                        //Radio de las Vertices interiores.
+                        let radioInterno = 40;
+                        //Radio de las Vertices exteriores.
+                        let radioExterno = 80;
+                        //Ubicacion de la estrella (Centro).
+                        var xx = canvas.width / 2;
+                        var yy = canvas.height / 2;
+
+
+                        ctx.beginPath();
+
+                        //Crearé un bucle para añadir todos los puntos necesarios a nuestra estrella
+
+                        for (let i = 0; i < vertices; i++) {
+
+                            let x, y;
+
+                            if (i % 2 == 0) {
+
+                                //Aqui crearemos las Vertices exteriores.
+                                x = Math.cos(angulo * i) * radioExterno;
+                                y = Math.sin(angulo * i) * radioExterno;
+                            } else {
+
+                                //Aqui crearemos las Vertices interiores.
+                                x = Math.cos(angulo * i) * radioInterno;
+                                y = Math.sin(angulo * i) * radioInterno;
+
+                            }
+                            ctx.lineTo(xx + x,yy + y);
+                        }
+
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.stroke();
+                    }else{
+                        
+                        alert("No soporta la etiqueta canvas");
+
+                    }
+
+                }
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <!--
+        
+            La etiqueta canvas nos genera un "lienzo" en el que podemos 
+            dibujar graficos y animaciones mediante JavaScript
+        
+        -->
+        <canvas id="canvas" width="600" height="400">
+
+        </canvas>
+    </body>
+</html>

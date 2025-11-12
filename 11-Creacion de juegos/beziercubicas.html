@@ -37,41 +37,28 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer trazos en el canvas con JavaScript
+                        //Aqui veremos como podemos hacer una curva de beizer cubicas 
+                        // en el canvas con JavaScript
                         
-                        //Estilos de los trazos
+                        //Estilos de la curva
                         ctx.lineWidth = 5;
                         ctx.strokeStyle = "yellow";
                         ctx.fillStyle="red";
-
-                        //Trazo nº1
-                        //Los trazos se crean poniendo varios puntos en el canvas
+                        let ubicacion = [20,20]
                         ctx.beginPath();
-                        ctx.moveTo(50,100);
-                        ctx.lineTo(100,50);
-                        ctx.lineTo(150,100);
-                        ctx.lineTo(100,150);
-                        ctx.stroke();
-
-                        //Trazo nº2
-                        ctx.beginPath();
-                        ctx.moveTo(200,100);
-                        ctx.lineTo(250,50);
-                        ctx.lineTo(300,100);
-                        ctx.lineTo(250,150);
-                        //Podemos cerrar la primera linea con la ultima para cerrar el trazo
-                        ctx.closePath();
-                        ctx.stroke();
-
-                        //Trazo nº3
-                        ctx.beginPath();
-                        ctx.moveTo(350,100);
-                        ctx.lineTo(400,50);
-                        ctx.lineTo(450,100);
-                        ctx.lineTo(400,150);
-                        ctx.closePath();
-                        //Y tambien podemos llenar el espacio vacio entre las lineas con un color
-                        ctx.fill();
+                        
+                        /**
+                         * El metodo del canvas llamado "bezierCurveTo" nos permite crear 
+                         * la curva bezier cubica. Este metodo es parecido al anterior, pero 
+                         * con un punto mas para tener 2 angulos en la curva.
+                         * Aqui el significado de cada parametro:
+                         * 1- Pondremos un moveTo para crear el punto donde empieza.
+                         * 2 y 3- Ubicacion del primer angulo.
+                         * 4 y 5- Ubicacion del segundo angulo.
+                         * 6 y 7- Ubicacion del ultimo punto.
+                         */
+                        ctx.moveTo(ubicacion[0],ubicacion[1]);
+                        ctx.bezierCurveTo(60,100,400,100, 200,300);
                         ctx.stroke();
 
                     }else{

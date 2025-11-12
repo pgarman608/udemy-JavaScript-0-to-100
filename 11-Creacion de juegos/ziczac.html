@@ -37,43 +37,44 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer trazos en el canvas con JavaScript
+                        //Aqui veremos como podemos hacer un ziczac en el canvas con JavaScript
                         
-                        //Estilos de los trazos
+                        //Estilos del ziczac
                         ctx.lineWidth = 5;
                         ctx.strokeStyle = "yellow";
                         ctx.fillStyle="red";
 
-                        //Trazo nº1
-                        //Los trazos se crean poniendo varios puntos en el canvas
-                        ctx.beginPath();
-                        ctx.moveTo(50,100);
-                        ctx.lineTo(100,50);
-                        ctx.lineTo(150,100);
-                        ctx.lineTo(100,150);
-                        ctx.stroke();
+                        //Ubicaciones y desplazamientos
 
-                        //Trazo nº2
-                        ctx.beginPath();
-                        ctx.moveTo(200,100);
-                        ctx.lineTo(250,50);
-                        ctx.lineTo(300,100);
-                        ctx.lineTo(250,150);
-                        //Podemos cerrar la primera linea con la ultima para cerrar el trazo
-                        ctx.closePath();
-                        ctx.stroke();
+                        let inicioX = 85;
+                        let inicioY = 90;
+                        var desplazamiento = 30;
+                        var nLineas = 15;
 
-                        //Trazo nº3
                         ctx.beginPath();
-                        ctx.moveTo(350,100);
-                        ctx.lineTo(400,50);
-                        ctx.lineTo(450,100);
-                        ctx.lineTo(400,150);
-                        ctx.closePath();
-                        //Y tambien podemos llenar el espacio vacio entre las lineas con un color
-                        ctx.fill();
-                        ctx.stroke();
+                        //Creamos el primer punto.
+                        ctx.moveTo(inicioX,inicioY);
 
+                        //Haremos un bucle donde crearemos cada linea.
+                        for (let i = 0; i < nLineas; i++) {
+
+                            //Moveremos la x al siguiente
+                            var x = inicioX + ((i + 1) * desplazamiento);
+
+                            //La y tmb la moveremos si el numero de lineas es par.
+                            var y = inicioY;
+                            if (i%2 == 0) {
+                                
+                                y = inicioY + 100;
+
+                            }
+
+                            //Añadiremos el siguiente punto.
+                            ctx.lineTo(x , y)
+
+                        }
+
+                        ctx.stroke();
                     }else{
                         
                         alert("No soporta la etiqueta canvas");

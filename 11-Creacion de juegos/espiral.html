@@ -37,43 +37,42 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer trazos en el canvas con JavaScript
+                        //Aqui veremos como podemos hacer una espiral en el canvas con JavaScript
                         
-                        //Estilos de los trazos
+                        //Estilos del espiral
                         ctx.lineWidth = 5;
-                        ctx.strokeStyle = "yellow";
-                        ctx.fillStyle="red";
+                        ctx.strokeStyle = "orange";
 
-                        //Trazo nº1
-                        //Los trazos se crean poniendo varios puntos en el canvas
+                        //Parametros de la espiral
+
+                        let radio = 0, angulo = 0;
+
                         ctx.beginPath();
-                        ctx.moveTo(50,100);
-                        ctx.lineTo(100,50);
-                        ctx.lineTo(150,100);
-                        ctx.lineTo(100,150);
-                        ctx.stroke();
 
-                        //Trazo nº2
-                        ctx.beginPath();
-                        ctx.moveTo(200,100);
-                        ctx.lineTo(250,50);
-                        ctx.lineTo(300,100);
-                        ctx.lineTo(250,150);
-                        //Podemos cerrar la primera linea con la ultima para cerrar el trazo
-                        ctx.closePath();
-                        ctx.stroke();
+                        //Primer punto de la espiral estará en el medio del canvas
+                        ctx.moveTo(canvas.width / 2, canvas.height / 2);
 
-                        //Trazo nº3
-                        ctx.beginPath();
-                        ctx.moveTo(350,100);
-                        ctx.lineTo(400,50);
-                        ctx.lineTo(450,100);
-                        ctx.lineTo(400,150);
-                        ctx.closePath();
-                        //Y tambien podemos llenar el espacio vacio entre las lineas con un color
-                        ctx.fill();
-                        ctx.stroke();
+                        //Ahora crearé un bucle para añadir todos los puntos necesarios 
+                        //a nuestra espiral
 
+                        for (let i = 0; i < 200; i++) {
+                            
+                            //El radio lo aumentaremos para aleje el punto del centro.
+                            radio += 0.75;
+
+                            //El angulo lo aumentaremos para que rote alrededor del centro.
+                            angulo += (Math.PI * 2) /50;
+
+                            //Mueve el punto desde el centro hacia la derecha o izquierda.
+                            let x = canvas.width / 2 + radio * Math.cos(angulo);
+
+                            //Mueve el punto desde el centro hacia arriba o abajo.
+                            let y = canvas.height / 2 + radio * Math.sin(angulo);
+                            
+                            ctx.lineTo(x,y);
+                        }
+
+                        ctx.stroke();
                     }else{
                         
                         alert("No soporta la etiqueta canvas");

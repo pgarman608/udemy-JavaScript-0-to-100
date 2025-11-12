@@ -37,43 +37,35 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer trazos en el canvas con JavaScript
+                        //Aqui veremos como podemos hacer arco en el canvas con JavaScript
                         
-                        //Estilos de los trazos
+                        //Estilos del arco
                         ctx.lineWidth = 5;
                         ctx.strokeStyle = "yellow";
                         ctx.fillStyle="red";
 
-                        //Trazo nº1
-                        //Los trazos se crean poniendo varios puntos en el canvas
                         ctx.beginPath();
-                        ctx.moveTo(50,100);
-                        ctx.lineTo(100,50);
-                        ctx.lineTo(150,100);
-                        ctx.lineTo(100,150);
+                        /**
+                         * El metodo del canvas llamado "arc" nos permite crear el arco.
+                         * Aqui el significado de cada parametro:
+                         * 1- Ubicacion en x.
+                         * 2- Ubicacion en y.
+                         * 3- Tamaño del arco.
+                         * 4- Ubicacion del primer punto.
+                         * 5- Ubicacion del segundo punto.
+                         */
+                        ctx.arc(100,150,50,1.1 * Math.PI , 1.9 * Math.PI );
+                        ctx.stroke();
+                        
+                        ctx.beginPath();
+                        // 6- Se rellena la parte no seleccionada
+                        ctx.arc(250,150,50,1.1 * Math.PI , 1.9 * Math.PI , true);
                         ctx.stroke();
 
-                        //Trazo nº2
                         ctx.beginPath();
-                        ctx.moveTo(200,100);
-                        ctx.lineTo(250,50);
-                        ctx.lineTo(300,100);
-                        ctx.lineTo(250,150);
-                        //Podemos cerrar la primera linea con la ultima para cerrar el trazo
-                        ctx.closePath();
-                        ctx.stroke();
-
-                        //Trazo nº3
-                        ctx.beginPath();
-                        ctx.moveTo(350,100);
-                        ctx.lineTo(400,50);
-                        ctx.lineTo(450,100);
-                        ctx.lineTo(400,150);
-                        ctx.closePath();
-                        //Y tambien podemos llenar el espacio vacio entre las lineas con un color
+                        ctx.arc(400,150,50,0, 2 * Math.PI);
                         ctx.fill();
                         ctx.stroke();
-
                     }else{
                         
                         alert("No soporta la etiqueta canvas");
