@@ -24,9 +24,7 @@
         <script>
             
             let canvas;
-            /**
-             * Aqui veremos como podemos acceder a los datos importantes del canvas.
-             */
+
             window.addEventListener("load",(event)=>{
 
                 canvas = document.getElementById("canvas");
@@ -37,36 +35,36 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer un engranaje en el canvas con JavaScript
+                        //Aqui veremos como podemos hacer un engranaje en el canvas con JavaScript.
                         
-                        //Estilos de la engranaje
+                        //Estilos de la engranaje.
                         ctx.lineWidth = 5;
                         ctx.strokeStyle = "red";
                         ctx.fillStyle = "yellow"
 
                         //Parametros de la engranaje
 
-                        //Centro del engranaje
+                        //Centro del engranaje.
                         let centroX = canvas.width / 2, centroY = canvas.height / 2;
 
-                        //Radios de los circulos del engranaje
+                        //Radios de los circulos del engranaje.
                         let radioExterno = 95;
                         let radioInterno = 50;
                         let radioMedio = radioInterno * 1.6;
                         let radioCentro = 20
 
-                        //Numero de puntos que va a contener el engranaje
+                        //Numero de puntos que va a contener el engranaje.
                         let nPuntos = 40;
 
                         ctx.beginPath();
-                        ctx.lineJoin = "bevel" //redondea las lineas que se junten
+                        ctx.lineJoin = "bevel" //redondea las lineas que se junten.
 
-                        //Crearé un bucle para añadir todos los puntos necesarios a nuestra estrella
+                        //Crearé un bucle para añadir todos los puntos necesarios a nuestra engranaje.
 
                         for (let i = 0; i < nPuntos; i++) {
                             
                             let radio = null;
-
+                            //Segun el punto en el que estemos lo dibujaremos en el radio externo e interno.
                             if(i % 2 == 0){
                                 
                                 radio = radioExterno;
@@ -76,8 +74,10 @@
                                 radio = radioInterno;
 
                             }
-                            let angulo = Math.PI * 2 / nPuntos * (i+1)
+                            //Moveremos el angulo segun el punto.
+                            let angulo = Math.PI * 2 / nPuntos * (i+1);
 
+                            //La ubicacion del nuevo punto.
                             let x = (radio * Math.sin(angulo)) + centroX;
                             let y = (radio * Math.cos(angulo)) + centroY;
 

@@ -24,9 +24,7 @@
         <script>
             
             let canvas;
-            /**
-             * Aqui veremos como podemos acceder a los datos importantes del canvas.
-             */
+
             window.addEventListener("load",(event)=>{
 
                 canvas = document.getElementById("canvas");
@@ -37,43 +35,45 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer trazos en el canvas con JavaScript
-                        
-                        //Estilos de los trazos
+                        // Aqui veremos como podemos dibujar lineas dentro del canvas con JavaScript
+                        //Le damos un estilo al trazo.
+
                         ctx.lineWidth = 5;
                         ctx.strokeStyle = "yellow";
-                        ctx.fillStyle="red";
 
-                        //Trazo nº1
-                        //Los trazos se crean poniendo varios puntos en el canvas
+                        //Iniciamos el trazo
+
                         ctx.beginPath();
+                        ctx.lineCap = "round";
+                        //Punto donde empieza y donde finaliza
+
+                        ctx.moveTo(50,50);
+                        ctx.lineTo(450,50);
+
+                        //Mostramos el trazo
+
+                        ctx.stroke();
+                        /**
+                         * Aqui veremos algunas propiedades de las lineas del canvas JavaScript
+                         * --lineCap--
+                         * 1- round: Las esquinas seran redondeadas.
+                         * 2- square: Las esquinas cuadradas.
+                         * 3- butt: Las esqunas reducidas.
+                         */
+                        
+                        ctx.strokeStyle = "orange";
+                        ctx.beginPath();
+                        ctx.lineCap = "square";
                         ctx.moveTo(50,100);
-                        ctx.lineTo(100,50);
-                        ctx.lineTo(150,100);
-                        ctx.lineTo(100,150);
-                        ctx.stroke();
-
-                        //Trazo nº2
-                        ctx.beginPath();
-                        ctx.moveTo(200,100);
-                        ctx.lineTo(250,50);
-                        ctx.lineTo(300,100);
-                        ctx.lineTo(250,150);
-                        //Podemos cerrar la primera linea con la ultima para cerrar el trazo
-                        ctx.closePath();
-                        ctx.stroke();
-
-                        //Trazo nº3
-                        ctx.beginPath();
-                        ctx.moveTo(350,100);
-                        ctx.lineTo(400,50);
                         ctx.lineTo(450,100);
-                        ctx.lineTo(400,150);
-                        ctx.closePath();
-                        //Y tambien podemos llenar el espacio vacio entre las lineas con un color
-                        ctx.fill();
                         ctx.stroke();
-
+                        
+                        ctx.strokeStyle = "blue";
+                        ctx.beginPath();
+                        ctx.lineCap = "butt";
+                        ctx.moveTo(50,150);
+                        ctx.lineTo(450,150);
+                        ctx.stroke();
                     }else{
                         
                         alert("No soporta la etiqueta canvas");

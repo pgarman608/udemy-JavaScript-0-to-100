@@ -24,9 +24,6 @@
         <script>
             
             let canvas;
-            /**
-             * Aqui veremos como podemos acceder a los datos importantes del canvas.
-             */
             window.addEventListener("load",(event)=>{
 
                 canvas = document.getElementById("canvas");
@@ -36,31 +33,22 @@
                     let ctx = canvas.getContext("2d");
 
                     if (ctx) {
-                        
-                        //Aqui veremos como podemos hacer una curva de beizer cubicas 
-                        // en el canvas con JavaScript
-                        
-                        //Estilos de la curva
-                        ctx.lineWidth = 5;
-                        ctx.strokeStyle = "yellow";
-                        ctx.fillStyle="red";
-                        let ubicacion = [20,20]
-                        ctx.beginPath();
-                        
-                        /**
-                         * El metodo del canvas llamado "bezierCurveTo" nos permite crear 
-                         * la curva bezier cubica. Este metodo es parecido al anterior, pero 
-                         * con un punto mas para tener 2 angulos en la curva.
-                         * Aqui el significado de cada parametro:
-                         * 1- Pondremos un moveTo para crear el punto donde empieza.
-                         * 2 y 3- Ubicacion del primer angulo.
-                         * 4 y 5- Ubicacion del segundo angulo.
-                         * 6 y 7- Ubicacion del ultimo punto.
-                         */
-                        ctx.moveTo(ubicacion[0],ubicacion[1]);
-                        ctx.bezierCurveTo(60,100,400,100, 200,300);
-                        ctx.stroke();
 
+                        //Aqui veremos como podemos crear un patron a partir de 
+                        //una imagen en canvas de JavaScript.
+
+                        //Crearemos la imagen para el patron.
+                        let imgBola = new Image();
+                        imgBola.src ="bola.png";
+
+                        //Cuando la imagen se carge crearemos un patron que se repita.
+                        imgBola.onload = function(evt) {
+                            var patron = ctx.createPattern(imgBola, "repeat");
+
+                            //Añadimos el patron al canvas
+                            ctx.fillStyle = patron;
+                            ctx.fillRect(0,0,canvas.width, canvas.height);
+                        };
                     }else{
                         
                         alert("No soporta la etiqueta canvas");

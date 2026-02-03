@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Canvas</title>
+
+        <style>
+            /*
+            
+                Al canvas generado en el body le pondremos un color de fondo 
+                y un borde para diferenciarlo.
+            
+            */
+            #canvas{
+
+                background-color: cyan;
+                border: solid yellow 3px;
+
+            }
+
+        </style>
+
+        <script>
+            
+            let canvas;
+
+            window.addEventListener("load",(event)=>{
+
+                canvas = document.getElementById("canvas");
+                // Comprobamos que podemos acceder al canvas.
+                if (canvas && canvas.getContext) {
+                    // Recogeremos el contenido 2d del canvas.
+                    let ctx = canvas.getContext("2d");
+
+                    if (ctx) {
+                        
+                        //Aqui veremos como podemos hacer una curva de beizer en el canvas con JavaScript
+                        
+                        //Estilos de la curva
+                        ctx.lineWidth = 5;
+                        ctx.strokeStyle = "yellow";
+                        ctx.fillStyle="red";
+                        let ubicacion = [20,20]
+                        ctx.beginPath();
+                        
+                        /**
+                         * El metodo del canvas llamado "quadraticCurveTo" nos permite crear la curva bezier.
+                         * Aqui el significado de cada parametro:
+                         * 1- Pondremos un moveTo para crear el punto donde empieza.
+                         * 2 y 3- Ubicacion del angulo.
+                         * 4 y 5- Ubicacion del ultimo punto.
+                         */
+                        ctx.moveTo(ubicacion[0],ubicacion[1]);
+                        ctx.quadraticCurveTo(150,200,400,20);
+                        ctx.stroke();
+
+
+                    }else{
+                        
+                        alert("No soporta la etiqueta canvas");
+
+                    }
+
+                }
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <!--
+        
+            La etiqueta canvas nos genera un "lienzo" en el que podemos 
+            dibujar graficos y animaciones mediante JavaScript
+        
+        -->
+        <canvas id="canvas" width="600" height="400">
+
+        </canvas>
+    </body>
+</html>

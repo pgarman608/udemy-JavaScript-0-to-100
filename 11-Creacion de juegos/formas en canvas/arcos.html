@@ -24,9 +24,7 @@
         <script>
             
             let canvas;
-            /**
-             * Aqui veremos como podemos acceder a los datos importantes del canvas.
-             */
+            
             window.addEventListener("load",(event)=>{
 
                 canvas = document.getElementById("canvas");
@@ -37,27 +35,35 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer una curva de beizer en el canvas con JavaScript
+                        //Aqui veremos como podemos hacer arco en el canvas con JavaScript
                         
-                        //Estilos de la curva
+                        //Estilos del arco
                         ctx.lineWidth = 5;
                         ctx.strokeStyle = "yellow";
                         ctx.fillStyle="red";
-                        let ubicacion = [20,20]
+
                         ctx.beginPath();
-                        
                         /**
-                         * El metodo del canvas llamado "quadraticCurveTo" nos permite crear la curva bezier.
+                         * El metodo del canvas llamado "arc" nos permite crear el arco.
                          * Aqui el significado de cada parametro:
-                         * 1- Pondremos un moveTo para crear el punto donde empieza.
-                         * 2 y 3- Ubicacion del angulo.
-                         * 4 y 5- Ubicacion del ultimo punto.
+                         * 1- Ubicacion en x.
+                         * 2- Ubicacion en y.
+                         * 3- Tamaño del arco.
+                         * 4- Ubicacion del primer punto.
+                         * 5- Ubicacion del segundo punto.
                          */
-                        ctx.moveTo(ubicacion[0],ubicacion[1]);
-                        ctx.quadraticCurveTo(150,200,400,20);
+                        ctx.arc(100,150,50,1.1 * Math.PI , 1.9 * Math.PI );
+                        ctx.stroke();
+                        
+                        ctx.beginPath();
+                        // 6- Se rellena la parte no seleccionada
+                        ctx.arc(250,150,50,1.1 * Math.PI , 1.9 * Math.PI , true);
                         ctx.stroke();
 
-
+                        ctx.beginPath();
+                        ctx.arc(400,150,50,0, 2 * Math.PI);
+                        ctx.fill();
+                        ctx.stroke();
                     }else{
                         
                         alert("No soporta la etiqueta canvas");

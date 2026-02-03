@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Canvas</title>
+
+        <style>
+            /*
+            
+                Al canvas generado en el body le pondremos un color de fondo 
+                y un borde para diferenciarlo.
+            
+            */
+            #canvas{
+
+                background-color: cyan;
+                border: solid yellow 3px;
+
+            }
+
+        </style>
+
+        <script>
+            
+            let canvas;
+            window.addEventListener("load",(event)=>{
+
+                canvas = document.getElementById("canvas");
+                // Comprobamos que podemos acceder al canvas.
+                if (canvas && canvas.getContext) {
+                    // Recogeremos el contenido 2d del canvas.
+                    let ctx = canvas.getContext("2d");
+
+                    if (ctx) {
+
+                        //Aqui veremos como podemos cargar un texto en canvas de JavaScript.
+                        let texto = "Canvas";
+
+                        //Estilos del texto
+                        ctx.font = "8em Verdana";
+                        ctx.lineWidth = 1.0;
+                        ctx.fillStyle = "blue";
+                        ctx.strokeStyle = "yellow";
+                        
+                        //Sombras del texto
+                        ctx.shadowColor = "black";
+                        ctx.shadowOffestX = 5;
+                        ctx.shadowOffestY = 5;
+                        ctx.shadowBlur = 10;
+
+                        //Cargaremos el texto en el canvas
+                        ctx.fillText(texto,35,150);
+                        ctx.strokeText(texto,35,150);
+                        ctx.fillRect(35,150,10,10);
+                    }else{
+                        
+                        alert("No soporta la etiqueta canvas");
+
+                    }
+
+                }
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <!--
+        
+            La etiqueta canvas nos genera un "lienzo" en el que podemos 
+            dibujar graficos y animaciones mediante JavaScript
+        
+        -->
+        <canvas id="canvas" width="600" height="400">
+
+        </canvas>
+    </body>
+</html>

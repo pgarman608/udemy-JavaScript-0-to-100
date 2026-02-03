@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Canvas</title>
+
+        <style>
+            /*
+            
+                Al canvas generado en el body le pondremos un color de fondo 
+                y un borde para diferenciarlo.
+            
+            */
+            #canvas{
+
+                background-color: cyan;
+                border: solid yellow 3px;
+
+            }
+
+        </style>
+
+        <script>
+            
+            let canvas;
+            window.addEventListener("load",(event)=>{
+
+                canvas = document.getElementById("canvas");
+                // Comprobamos que podemos acceder al canvas.
+                if (canvas && canvas.getContext) {
+                    // Recogeremos el contenido 2d del canvas.
+                    let ctx = canvas.getContext("2d");
+
+                    if (ctx) {
+
+                        //Aqui veremos como podemos cargar una imagen en canvas de JavaScript.
+
+                        //Crearemos la imagen.
+                        let imgGrito = new Image();
+                        imgGrito.src ="grito.png";
+
+                        //Cuando la imagen se carge la procesaremos en el canvas.
+                        imgGrito.onload = function(evt) {
+
+                            procesarImagen();
+
+                        };
+                        function procesarImagen() {
+                            
+                            ctx.drawImage(imgGrito,10,10);
+
+                        }
+                    }else{
+                        
+                        alert("No soporta la etiqueta canvas");
+
+                    }
+
+                }
+
+            });
+
+        </script>
+    </head>
+    <body>
+        <!--
+        
+            La etiqueta canvas nos genera un "lienzo" en el que podemos 
+            dibujar graficos y animaciones mediante JavaScript
+        
+        -->
+        <canvas id="canvas" width="600" height="400">
+
+        </canvas>
+    </body>
+</html>

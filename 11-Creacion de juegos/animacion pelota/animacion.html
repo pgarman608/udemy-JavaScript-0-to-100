@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Animacion Bola</title>
+
+        <style>
+            /*
+            
+                Al canvas generado en el body le pondremos un color de fondo 
+                y un borde para diferenciarlo.
+            
+            */
+            #canvas{
+
+                background-color: cyan;
+                border: solid rgb(0, 0, 0) 3px;
+
+            }
+
+        </style>
+
+        <script>
+            
+            //Aqui veremos como podemos hacer una animacion en el canvas de JavaScript.
+
+            //Crearemos un objeto con todos los datos necesarios para realizar la animacion.
+            const game = {
+                ctx:null,
+                canvas:null,
+                radio:10,
+                bolaX:50,
+                bolaY:100,
+                colorBola:"Orange",
+                disX:4,
+                disY:4,
+                limiteDerecha:0,
+                limiteIzquierda:0,
+                limiteArriba:0,
+                limiteAbajo:0
+            }
+            
+            window.addEventListener("load",(event)=>{
+                //Crearemos el canvas del animacion.
+                game.canvas = document.getElementById("canvas");
+
+                //Comprobamos que podemos acceder al canvas del animacion.
+                if (game.canvas && game.canvas.getContext) {
+                    //Recogeremos el contenido 2d del canvas del animacion.
+                    game.ctx = game.canvas.getContext("2d");
+
+                    if (game.ctx) {
+                        //Iniciamos los valores del animacion
+                        inicio();
+                        
+                        //Llamamos una vez a la función para dibujar la primera bola.
+                        mueve();
+
+                        // Repetimos la función "mueve" cada 60 milisegundos.
+                        setInterval(mueve,60)
+                    
+                    }else{
+                        
+                        alert("No soporta la etiqueta canvas");
+
+                    }
+
+                }
+
+            });
+            //Movimiento de la animacion
+            const mueve = ()=>{
+                //Limpiamos el canvas
+                limpiarCanvas();
+                // Movemos la bola horizontalmente y verticalmente
+                verificarColision();
+                game.bolaX += game.disX;
+                game.bolaY += game.disY;
+                
+                // Inicia un nuevo dibujo de la bola
+                game.ctx.beginPath();
+                game.ctx.arc(game.bolaX,game.bolaY, game.radio,0,2*Math.PI,true);
+                // Rellena el círculo
+                game.ctx.fill();  
+            };
+            //Inicio de datos sobre la animacion.
+            const inicio=()=>{
+                //Tamaño y color de la bola
+                game.ctx.linewidth = game.radio;
+                game.ctx.fillStyle = game.colorBola;
+
+                //Limites del canvas en la animacion
+                game.limiteDerecha = game.canvas.width - game.radio;
+                game.limiteIzquierda = game.radio;
+
+                game.limiteArriba = game.radio;
+                game.limiteAbajo = game.canvas.height - game.radio;
+            };
+            const verificarColision = () => {
+                let nbolaX = game.bolaX + game.disX;
+                let nbolaY = game.bolaY + game.disY;
+
+                if (nbolaX > game.limiteDerecha) {
+                    game.disX *= -1;
+                    nbolaX = game.limiteDerecha;
+                }
+                if (nbolaX < game.limiteIzquierda) {
+                    game.disX *= -1;
+                    nbolaX = game.limiteIzquierda;
+                }
+                if (nbolaY > game.limiteAbajo) {
+                    game.disY *= -1;
+                    nbolaY = game.limiteAbajo;
+                }
+                if (nbolaY < game.limiteArriba) {
+                    game.disY *= -1;
+                    nbolaY = game.limiteArriba;
+                }
+                game.bolaX = nbolaX;
+                game.bolaY = nbolaY;
+            };
+
+            //Funcion para limpiar el canvas
+            function limpiarCanvas() {
+
+                game.ctx.clearRect(0,0,game.canvas.width,game.canvas.height);
+
+            }
+        </script>
+    </head>
+    <body>
+        <!--
+        
+            La etiqueta canvas nos genera un "lienzo" en el que podemos 
+            dibujar graficos y animaciones mediante JavaScript
+        
+        -->
+            
+        <canvas id="canvas" width="600" height="400">
+
+        </canvas>
+    </body>
+</html>

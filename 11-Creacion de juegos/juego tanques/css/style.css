@@ -1,0 +1,12 @@
+body{
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+canvas{
+    background-color: gray;
+    border-color: black;
+    border-style: solid;
+}

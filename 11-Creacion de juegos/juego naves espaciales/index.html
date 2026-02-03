@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Animacion Bola</title>
+
+        <style>
+            /*
+            
+                Al canvas generado en el body le pondremos un color de fondo 
+                y un borde para diferenciarlo.
+            
+            */
+
+            body{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+            #canvas{
+
+                background-color: black;
+                border: solid greenyellow;
+                width: fit-content;
+            }
+
+        </style>
+
+        <script>
+            
+            //Aqui veremos como podemos hacer un juego de naves dentro del canvas de JavaScript.
+            let x = 100, y = 100;
+            //Crearemos un objeto con todos los datos necesarios para realizar el juego.
+            const game = {
+                ctx : null,
+                canvas : null,
+                imagen : null,
+                caratula : true,
+                imagenEnemigo : null,
+                teclaPulsada: null,
+                tecla : [],
+                colorBala : "red",
+                colorBalaEnemigo : "yellow",
+                balas_array : new Array(),
+                balasEnemigas_array : new Array(),
+                enemigos_array : new Array(),
+                disparo : false,
+                score : 0,
+                endGame : false,
+                boing : null ,
+                disparoJugador : null,
+                intro:null,
+                fin:null,
+                soundBoing:null,
+                soundDisparoJugador:null,
+                soundFin:null,
+                soundIntro:null,
+            }
+            /**
+             * Teclas - Constantes.
+             **/
+            const KEY_ENTER = 13;
+            const KEY_LEFT = 37;
+            const KEY_UP = 38;
+            const KEY_RIGHT = 39;
+            const KEY_DOWN = 40;
+            const BARRA = 32;
+            /**
+             * Objetos
+             **/
+            //Balas que dispara el jugador
+            function Bala(x,y,w) {
+                //Ubicacion en x e y del jugador
+                this.x = x;
+                this.y = y;
+                //Tamaño del proyectil
+                this.w = w;
+                //Funcion para crear la bala
+                this.dibujar = () => {
+                    game.ctx.save();
+                    game.ctx.fillStyle = game.colorBala;
+                    game.ctx.fillRect(this.x, this.y, this.w, this.w);
+                    this.y -= 4;
+                    game.ctx.restore();
+                };
+                this.dibujarEnemigo = () => {
+                    game.ctx.save();
+                    game.ctx.fillStyle = game.colorBalaEnemigo;
+                    game.ctx.fillRect(this.x, this.y, this.w, this.w);
+                    this.y += 3;
+                    game.ctx.restore();
+                };
+            }
+            //Jugador que maneja el usuario
+            function Jugador(x) {
+                //Ubicacion en x e y del jugador
+                this.x = x;
+                this.y = 450;
+                this.w = 30;
+                this.h = 45;
+                //Funcion para crear el jugador
+                this.dibujar = (x) => {
+                    this.x = x;
+                    game.ctx.drawImage(game.imagen, this.x, this.y, this.w , this.h)
+                };
+
+            }
+            //Enemigos del juego
+            function Enemigos(x,y) {
+                //Ubicacion del enemigo
+                this.x = x;
+                this.y = y;
+                //Tamaño del enemigo
+                this.w = 35;
+                this.veces = 0;
+                this.dx = 5;
+                this.ciclos = 0;
+                this.num = 14;
+                this.figura = true;
+                this.vive = true;
+
+                this.dibujar = () => {
+                    //retraso
+                    if (this.ciclos > 30) {
+                        
+                        if (this.veces > this.num) {
+
+                            this.dx *= -1;
+                            this.veces = 0;
+                            this.num = 28;
+                            this.y += 20;
+                            this.dx = (this.dx > 0) ? this.dx++ : this.dx--;
+                            
+                            
+                        }else{
+
+                            this.x += this.dx;
+
+                        }
+
+                        this.veces++;
+                        this.ciclos = 0;
+                        this.figura = !this.figura;
+
+                    }else{
+
+                        this.ciclos++;
+                        
+                    }
+                    if(this.figura){  
+
+                        game.ctx.drawImage(game.imagenEnemigo,0,0,32,32,this.x,this.y,34,34);
+
+                    }else{
+
+                        game.ctx.drawImage(game.imagenEnemigo,32,0,32,32,this.x,this.y,34,34);
+
+                    }
+                    
+                };
+            }
+
+            const animar = () => {
+                if(!game.endGame){
+                    //Comprobaremos de que podemos realizar el juego.
+                    requestAnimationFrame(animar);
+
+                    //Verificamos la posicion del elemento principal del juego.
+                    verificar();
+
+                    //Pintaremos el elemento principal del juego.
+                    pintar();
+
+                    //Aquí ejecutaremos para que tenga colisones las balas y los enemigos
+                    colisiones();
+                }
+                
+            };
+            const gameover= () => {
+                limpiarCanvas();
+                game.soundFin.play();
+                game.enemigos_array = [];
+                game.balasEnemigas_array = [];
+                game.balas_array = [];
+                
+                game.endGame = true;
+
+                mensaje("Game over",150);
+                mensaje("Score: " + game.score,190);
+                if (game.puntos > 100 || game.puntos <= 200) {
+                    mensaje("¡Muy bien!",260);
+                }else if(game.puntos > 200){
+                    mensaje("Felicidades!",260);
+                }else{
+                    mensaje("Que mal! Prueba otra vez!",260);
+                }
+
+            };
+
+            const mensaje = (cadena,y,tamano = 40) => {
+                let medio = (game.canvas.width) / 2;
+                game.ctx.save();
+                game.ctx.fillStyle = "green";
+                game.ctx.strokeStyle = "blue";
+                game.ctx.textBaseline = "top";
+                game.ctx.font = "bold " + tamano + "px Courier";
+                game.ctx.textAlign = "center";
+                game.ctx.fillText(cadena, medio, y)
+                game.ctx.restore();
+            }
+
+            /**
+             * Las colisiones de las balas del usuario contra los enemigos 
+             * se manejan en esta parte del codigo. Tambien esta la de los enemigos con el usuario
+             */
+            const colisiones = () => {
+
+                //Tendremos variables donde se guardaran tanto el enemigo como la bala
+                let enemigo , bala;
+
+                //Bucles para recoger los enemigos y las balas
+                for (let i = 0; i < game.enemigos_array.length; i++) {
+                    
+                    for (let j = 0; j < game.balas_array.length; j++) {
+
+                        //Recogeremos el enemigo como la bala en cuestion
+                        enemigo = game.enemigos_array[i];
+                        bala = game.balas_array[j];
+                        //Comprobaremos que no existian 
+                        if (enemigo != null && bala != null ) {
+                            //Comprobaremos si se tocan la bala con el enemigo
+                            if ((bala.x > enemigo.x) && (bala.x < enemigo.x + enemigo.w )
+                            && (bala.y > enemigo.y) && (bala.y < enemigo.y + enemigo.w)) {
+                                //Eliminaremos tanto la bala como el enemigo que se toquen
+                                enemigo.vive = false;
+
+                                game.enemigos_array[i] = null;
+                                game.balas_array[j] = null;
+                                
+                                game.disparo = false;
+                                game.score += 10;
+
+                                game.soundBoing.play();
+                            }
+                        }
+                    }
+                    
+                }
+                for (let i = 0; i < game.balasEnemigas_array.length; i++) {
+                    bala = game.balasEnemigas_array[i];
+                    if (bala != null) {
+                        if((bala.x > game.jugador.x) &&
+                            (bala.x < game.jugador.x + game.jugador.w) &&
+                            (bala.y > game.jugador.y) &&
+                            (bala.y < game.jugador.y + game.jugador.h)){
+                            gameover();
+                        }
+                    }
+                }
+            }
+            const displayScore = () => {
+                game.ctx.save();
+                game.ctx.fillStyle = "white";
+                game.ctx.font = "bold 20px Courier";
+                game.ctx.fillText("SCORE: " + game.score,10,20)
+            };
+            const dispararEnemigo=()=>{
+                let ultimosEnemigos = new Array();
+                let exitUltimos = true;
+                for (let i = game.enemigos_array.length-1; i >0; i--) {
+                    if (game.enemigos_array[i] != null && exitUltimos) {
+                        ultimosEnemigos.push(i);
+                    }
+                    if(ultimosEnemigos.leng == 10) exitUltimos = false;
+                }
+                let d = ultimosEnemigos[Math.floor(Math.random()*10)];
+                let enemigoShot = game.enemigos_array[d];
+
+                game.balasEnemigas_array.push(new Bala(enemigoShot.x + enemigoShot.w/2,enemigoShot.y,5));
+            };
+            const verificar = () => {
+                //Verificar ubicacion del jugador para que nos se mueva segun el limite del canvas.
+                if (game.tecla[KEY_RIGHT] && !(game.x> game.canvas.width - 32)) game.x += 10;
+                if (game.tecla[KEY_LEFT] && !(game.x < 10)) game.x -= 10;
+
+                //Disparar.
+                if (game.tecla[BARRA]) {
+                    if (game.disparo == false) {
+                        game.balas_array.push(new Bala(game.jugador.x + 12, game.jugador.y-3,5));
+                        game.tecla[BARRA] = false;
+                        game.disparo = true;
+                        game.soundDisparoJugador.play();
+                    }
+                }
+                //Disparo del enemigo
+                if (Math.random()>0.97) {
+                    dispararEnemigo();
+                }
+            };
+            /**
+             *  Utilizaremos los metodos de dibujar de los objetos
+             **/
+            const pintar = () => {
+                //Limpiamos el canvas de
+                limpiarCanvas();
+
+                game.jugador.dibujar(game.x);
+                //Pintar balas
+                for (let i = 0; i < game.balas_array.length; i++) {
+                    if (game.balas_array[i] != null) {
+                        game.balas_array[i].dibujar();
+                        if (game.balas_array[i].y<0) game.balas_array[i] = null;
+                    }
+                }
+                //Pintar balas enemigas
+                for (let i = 0; i < game.balasEnemigas_array.length; i++) {
+                    if (game.balasEnemigas_array[i] != null) {
+                        game.balasEnemigas_array[i].dibujarEnemigo();
+                        if (game.balasEnemigas_array[i].y>game.canvas.height) game.balasEnemigas_array[i] = null;
+                    }
+                    
+                }
+                //Mostraremos los enemigos en el canvas.
+                for (let i = 0; i < game.enemigos_array.length; i++) {
+                    if(game.enemigos_array[i]  != null )
+                        game.enemigos_array[i].dibujar();
+
+                }
+                displayScore();
+            }
+            /**
+             * Comprobaremos si el navegador es correcto para jugar al juego
+             **/
+            window.requestAnimationFrame = ( () => {
+                return window.requestAnimationFrame ||
+                window.webKitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) { window.setTimeout(callback,17);}
+            })();
+            /**
+             * Listenner de los botones
+             **/
+            document.addEventListener("keydown", (evt)=>{
+                game.teclaPulsada = evt.keyCode;
+                game.tecla[evt.keyCode] = true;
+            });
+            document.addEventListener("keyup", (evt)=>{
+                game.tecla[evt.keyCode] = false;
+            });
+            
+            window.addEventListener("load",(event)=>{
+                //Crearemos el canvas del juego.
+                game.canvas = document.getElementById("canvas");
+
+                //Comprobamos que podemos acceder al canvas del juego.
+                if (game.canvas && game.canvas.getContext) {
+                    //Recogeremos el contenido 2d del canvas del juego.
+                    game.ctx = game.canvas.getContext("2d");
+
+                    if (game.ctx) {
+
+                        game.soundBoing = document.getElementById("boing");
+                        game.soundDisparoJugador = document.getElementById("disparoJugador");
+                        game.soundFin = document.getElementById("fin");
+                        game.soundIntro = document.getElementById("intro");
+
+                        game.imagen = new Image();
+                        game.imagen.src = "imagenes/torre.fw.png";
+
+                        game.imagenEnemigo = new Image();
+                        game.imagenEnemigo.src = "imagenes/invader.fw.png"
+                        game.imagenEnemigo.onload = (ev) => {
+                            for (let i = 0; i < 5; i++) {
+                                for (let j = 0; j < 10; j++) {
+                                    
+                                    game.enemigos_array.push(new Enemigos(100 + 40 * j, 30 + 45 * i));
+                                    
+                                }
+                            }
+                        };
+                        //
+                        caratula();
+                        game.canvas.addEventListener("click",seleccionar,false)
+                    
+                    }else{
+                        
+                        alert("No soporta la etiqueta canvas");
+
+                    }
+
+                }
+
+            });
+
+            //Funcion para limpiar el canvas
+            function limpiarCanvas() {
+                
+                game.ctx.clearRect(0,0,game.canvas.width,game.canvas.height);
+
+            }
+
+            //Caragar y mostrar la caratula
+            const caratula = () => {
+                let imagen = new Image();
+                imagen.src = "imagenes/cara.jpeg";
+                imagen.onload = () => {
+                    game.ctx.drawImage(imagen, 0, 0);
+                };
+            };
+            //Seleccion de niveles del juego
+            const seleccionar = (e) => {
+                if (game.caratula) {
+                    inicio();
+                }
+            };
+            //Inicio de la aplicacion
+            const inicio = () => {
+                limpiarCanvas();
+                game.caratula = false;
+                game.soundIntro.play();
+                game.jugador = new Jugador(0);
+                game.x  = game.canvas.width /2;
+                
+                
+                game.jugador.dibujar(game.x);
+                animar();
+            };
+        </script>
+    </head>
+    <body>
+        <!--
+        
+            La etiqueta canvas nos genera un "lienzo" en el que podemos 
+            dibujar graficos y animaciones mediante JavaScript
+        
+        -->
+        <h1> Juego de Naves</h1>
+        <canvas id="canvas" width="960" height="500">
+            Tu navegador no soporta html5
+        </canvas>
+        <!-- Importamos los audios del juego por html -->
+        <audio src="sonidos/boing.wav" id="boing"></audio>
+        <audio src="sonidos/disparojugador.wav" id="diparoJugador"></audio>
+        <audio src="sonidos/intro.wav" id="intro"></audio>
+        <audio src="sonidos/fin.wav" id="fin"></audio>
+    </body>
+</html>

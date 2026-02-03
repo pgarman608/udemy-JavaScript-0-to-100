@@ -24,9 +24,7 @@
         <script>
             
             let canvas;
-            /**
-             * Aqui veremos como podemos acceder a los datos importantes del canvas.
-             */
+
             window.addEventListener("load",(event)=>{
 
                 canvas = document.getElementById("canvas");
@@ -37,41 +35,39 @@
 
                     if (ctx) {
                         
-                        //Aqui veremos como podemos hacer un ziczac en el canvas con JavaScript
+                        //Aqui veremos como podemos hacer una espiral en el canvas con JavaScript
                         
-                        //Estilos del ziczac
+                        //Estilos del espiral
                         ctx.lineWidth = 5;
-                        ctx.strokeStyle = "yellow";
-                        ctx.fillStyle="red";
+                        ctx.strokeStyle = "orange";
 
-                        //Ubicaciones y desplazamientos
+                        //Parametros de la espiral
 
-                        let inicioX = 85;
-                        let inicioY = 90;
-                        var desplazamiento = 30;
-                        var nLineas = 15;
+                        let radio = 0, angulo = 0;
 
                         ctx.beginPath();
-                        //Creamos el primer punto.
-                        ctx.moveTo(inicioX,inicioY);
 
-                        //Haremos un bucle donde crearemos cada linea.
-                        for (let i = 0; i < nLineas; i++) {
+                        //Primer punto de la espiral estará en el medio del canvas
+                        ctx.moveTo(canvas.width / 2, canvas.height / 2);
 
-                            //Moveremos la x al siguiente
-                            var x = inicioX + ((i + 1) * desplazamiento);
+                        //Ahora crearé un bucle para añadir todos los puntos necesarios 
+                        //a nuestra espiral
 
-                            //La y tmb la moveremos si el numero de lineas es par.
-                            var y = inicioY;
-                            if (i%2 == 0) {
-                                
-                                y = inicioY + 100;
+                        for (let i = 0; i < 200; i++) {
+                            
+                            //El radio lo aumentaremos para aleje el punto del centro.
+                            radio += 0.75;
 
-                            }
+                            //El angulo lo aumentaremos para que rote alrededor del centro.
+                            angulo += (Math.PI * 2) /50;
 
-                            //Añadiremos el siguiente punto.
-                            ctx.lineTo(x , y)
+                            //Mueve el punto desde el centro hacia la derecha o izquierda.
+                            let x = canvas.width / 2 + radio * Math.cos(angulo);
 
+                            //Mueve el punto desde el centro hacia arriba o abajo.
+                            let y = canvas.height / 2 + radio * Math.sin(angulo);
+                            
+                            ctx.lineTo(x,y);
                         }
 
                         ctx.stroke();

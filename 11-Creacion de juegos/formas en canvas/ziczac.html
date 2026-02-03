@@ -24,9 +24,7 @@
         <script>
             
             let canvas;
-            /**
-             * Aqui veremos como podemos acceder a los datos importantes del canvas.
-             */
+
             window.addEventListener("load",(event)=>{
 
                 canvas = document.getElementById("canvas");
@@ -37,44 +35,43 @@
 
                     if (ctx) {
                         
-                        // Aqui veremos como podemos dibujar lineas dentro del canvas con JavaScript
-                        //Le damos un estilo al trazo.
-
+                        //Aqui veremos como podemos hacer un ziczac en el canvas con JavaScript
+                        
+                        //Estilos del ziczac
                         ctx.lineWidth = 5;
                         ctx.strokeStyle = "yellow";
+                        ctx.fillStyle="red";
 
-                        //Iniciamos el trazo
+                        //Ubicaciones y desplazamientos
+
+                        let inicioX = 85;
+                        let inicioY = 90;
+                        var desplazamiento = 30;
+                        var nLineas = 15;
 
                         ctx.beginPath();
-                        ctx.lineCap = "round";
-                        //Punto donde empieza y donde finaliza
+                        //Creamos el primer punto.
+                        ctx.moveTo(inicioX,inicioY);
 
-                        ctx.moveTo(50,50);
-                        ctx.lineTo(450,50);
+                        //Haremos un bucle donde crearemos cada linea.
+                        for (let i = 0; i < nLineas; i++) {
 
-                        //Mostramos el trazo
+                            //Moveremos la x al siguiente
+                            var x = inicioX + ((i + 1) * desplazamiento);
 
-                        ctx.stroke();
-                        /**
-                         * Aqui veremos algunas propiedades de las lineas del canvas JavaScript
-                         * --lineCap--
-                         * 1- round: Las esquinas seran redondeadas.
-                         * 2- square: Las esquinas cuadradas.
-                         * 3- butt: Las esqunas reducidas.
-                         */
-                        
-                        ctx.strokeStyle = "orange";
-                        ctx.beginPath();
-                        ctx.lineCap = "square";
-                        ctx.moveTo(50,100);
-                        ctx.lineTo(450,100);
-                        ctx.stroke();
-                        
-                        ctx.strokeStyle = "blue";
-                        ctx.beginPath();
-                        ctx.lineCap = "butt";
-                        ctx.moveTo(50,150);
-                        ctx.lineTo(450,150);
+                            //La y tmb la moveremos si el numero de lineas es par.
+                            var y = inicioY;
+                            if (i%2 == 0) {
+                                
+                                y = inicioY + 100;
+
+                            }
+
+                            //Añadiremos el siguiente punto.
+                            ctx.lineTo(x , y)
+
+                        }
+
                         ctx.stroke();
                     }else{
                         
